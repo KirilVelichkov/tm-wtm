@@ -11,7 +11,7 @@ module.exports = function ({ data, app, encryption, config }) {
     router
         .get('/getLoggedUser', requireAuth, authController.getLoggedUser)
         .post('/login', requireLogin, authController.login)
-        .post('/register', authController.register)
+        .post('/register', requireAuth, authController.register)
 
     app.use('/auth', router);
 };

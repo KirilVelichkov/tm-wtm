@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import Routes from './routes';
-import Navigation from './components/Navigation';
+import Navigation from './components/Navigation/Navigation';
 
 class App extends Component {
 
     render() {
+
         return (
-            <div>
+            <div className="main">
                 <Navigation />
                 <Routes />
             </div>
@@ -14,4 +17,10 @@ class App extends Component {
     }
 }
 
-export default App;
+function mapStateToProps(state) {
+    return {
+        isAuthenticated: state.auth.isAuthenticated
+    };
+}
+
+export default connect(mapStateToProps)(App);

@@ -1,8 +1,12 @@
 'use strict';
 
 const bodyParser = require('body-parser');
+const express = require('express');
 
-module.exports = (app) => {
+module.exports = (app, config) => {
+    app.use('/static', express.static(config.rootPath + 'server'));
+    app.use(express.static(config.rootPath + 'server/images'));
+    app.use(express.static(config.rootPath + 'public/dist'));
 
     app.use(function (req, res, next) {
         res.header('Access-Control-Allow-Origin', '*');

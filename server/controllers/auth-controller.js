@@ -13,23 +13,18 @@ module.exports = ({ data, encryption, config }) => {
 
     function setUserInfo(request) {
         return {
-            _id: request._id,
             username: request.username,
             email: request.email,
-            role: request.role
+            isAdmin: request.isAdmin,
+            isBlocked: request.isBlocked,
+            avatar: request.avatar
         };
     }
 
     return {
         getLoggedUser(req, res) {
-            console.log(req.user);
-            let user = {
-                email: req.user.email,
-                username: req.user.username,
-                isAdmin: req.user.isAdmin,
-                isBlocked: req.user.isBlocked
-            };
-
+            let user = setUserInfo(req.user);
+            
             res.status(200).send({
                 user
             });
@@ -38,12 +33,15 @@ module.exports = ({ data, encryption, config }) => {
             let email = req.body.email;
 
             data.getByEmail(email)
-                .then(user => {
-                    if (user) {
+                .then(foundUser => {
+                    if (foundUser && !foundUser.isBlocked) {
+                        let user = setUserInfo(foundUser);
+                        
                         res.status(200).send({
                             success: true,
                             message: 'Sucessfully logged in!',
-                            token: 'JWT ' + generateToken(user)
+                            token: 'JWT ' + generateToken(foundUser),
+                            user
                         });
                     } else {
                         res.status(401).send({
@@ -54,8 +52,8 @@ module.exports = ({ data, encryption, config }) => {
                 });
         },
         register(req, res) {
-            const { email, username, password } = req.body;
-
+            const { email, username, password, isAdmin } = req.body;
+            
             // Return error if no email provided
             if (!email) {
                 return res.status(422).send({
@@ -80,9 +78,16 @@ module.exports = ({ data, encryption, config }) => {
                 });
             }
 
+            if (!req.user.isAdmin) {
+                return res.status(401).json({
+                    success: false,
+                    message:'Unauthorized'
+                })
+            }
+
             const salt = encryption.generateSalt();
             const passHash = encryption.generateHashedPassword(salt, password);
-
+            
             Promise.all([data.getByUsername(username), data.getByEmail(email)])
                 .then(([foundUsername, foundEmail]) => {
 
@@ -100,15 +105,11 @@ module.exports = ({ data, encryption, config }) => {
                         return;
                     }
 
-                    data.createUser({ username, passHash, email, salt })
+                    data.createUser({ username, passHash, email, salt, isAdmin })
                         .then((user) => {
-                            let userInfo = setUserInfo(user);
-
                             res.status(201).send({
                                 success: true,
-                                message: 'User registered!',
-                                token: 'JWT ' + generateToken(userInfo),
-                                user: userInfo
+                                message: 'User registered!'
                             });
                         });
                 });

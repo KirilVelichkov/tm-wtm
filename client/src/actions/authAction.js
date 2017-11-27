@@ -1,48 +1,76 @@
 import axios from 'axios';
-import cookie from 'react-cookies';
 
 import * as actionTypes from '../actions/types';
+import { API_URL } from '../components/Util/Constants';
 
-const API_URL = 'http://localhost:1337';
+export function getLoggedUser(token) {
+    return function (dispatch) {
+        axios.get(API_URL + '/auth/getLoggedUser', {
+            headers: { Authorization: token }
+        }).then(result => {
+            dispatch({
+                type: actionTypes.AUTH_USER,
+                payload: { user: result.data.user }
+            });
+        }).catch(() => {
+            dispatch({
+                type: actionTypes.UNAUTH_USER
+            });
+        });
 
-export async function getLoggedUser(token) {
-    const request = await axios.get(API_URL + '/auth/getLoggedUser', {
-        headers: { Authorization: token }
-    });
 
-    return {
-        type: actionTypes.AUTH_USER,
-        payload: request
     };
 }
 
-export async function loginUser({ email, password }) {
-    const request = await axios.post(API_URL + '/auth/login', { email, password });
-
-    cookie.save('token', request.data.token);
-
-    return {
-        type: actionTypes.AUTH_USER,
-        payload: request
+export function loginUser({ email, password }) {
+    return function (dispatch) {
+        axios.post(API_URL + '/auth/login', { email, password })
+            .then(result => {
+                localStorage.setItem('token', result.data.token);
+                dispatch({
+                    type: actionTypes.AUTH_USER,
+                    payload: {
+                        user: result.data.user
+                    }
+                });
+            })
+            .catch(() => {
+                dispatch({
+                    type: actionTypes.BAD_REQUEST,
+                });
+            });
     };
 }
 
-export async function registerUser({ email, username, password }) {
-    const request = await axios.post(API_URL + '/auth/register', { email, username, password });
-
-    cookie.save('token', request.data.token);
-
-    return {
-        type: actionTypes.AUTH_USER,
-        payload: request
+export function registerUser({ email, username, password, isAdmin }) {
+    const token = localStorage.getItem('token');
+    return function (dispatch) {
+        axios.post(API_URL + '/auth/register', { email, username, password, isAdmin }, {
+            headers: { Authorization: token }
+        }).then((result) => {
+            dispatch({
+                type: actionTypes.AUTH_USER,
+                payload: { message: result.data.message }
+            });
+            }).catch(data => {
+                const result = JSON.parse(JSON.stringify(data));
+                const { message } = result.response.data;
+                
+                dispatch({
+                    type: actionTypes.BAD_REQUEST,
+                    payload: message
+                });
+                
+        });
     };
 }
 
 export function logoutUser() {
-    cookie.remove('token');
+    localStorage.removeItem('token');
 
     return {
-        type: actionTypes.UNAUTH_USER
+        type: actionTypes.UNAUTH_USER,
+        payload: {}
     };
 }
 

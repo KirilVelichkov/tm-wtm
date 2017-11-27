@@ -1,28 +1,34 @@
 import * as actionTypes from '../actions/types';
 
 export default function (state = {}, action) {
+
     switch (action.type) {
 
         case actionTypes.AUTH_USER:
-            console.log(1, state);
-            console.log(2, action);
+            localStorage.setItem('isLogged', true);    
             return {
                 ...state,
-                isAuthenticated: true
+                user: action.payload.user,
+                isAuthenticated: true,
+                successMessage: action.payload.message,
+                invalidRegister: false,
+                invalidLogind:false
             };
 
         case actionTypes.UNAUTH_USER:
-            console.log(state);
-            console.log(action);
+            localStorage.removeItem('isLogged');    
             return {
                 ...state,
+                user: false,
                 isAuthenticated: false
             };
 
-        case 'TEST':
-            console.log(action);
+        case actionTypes.BAD_REQUEST:
             return {
-                a: '1'
+                ...state,
+                invalidLogin: true,
+                invalidRegister: true,
+                errorMessage: action.payload
             };
 
         default:

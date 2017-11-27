@@ -1,0 +1,207 @@
+html {
+  overflow-x: hidden; }
+
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+body {
+  background-image: url(./images/background.jpg);
+  background-size: cover; }
+
+.navigation {
+  height: 50px; }
+
+.checkbox-form {
+  -ms-transform: scale(1.5);
+  -moz-transform: scale(1.5);
+  -webkit-transform: scale(1.5);
+  -o-transform: scale(1.5);
+  transform: scale(1.5);
+  margin: 8px 4px; }
+
+.textbox-default {
+  width: 100%;
+  height: 25px;
+  display: block;
+  color: #3333FF; }
+  .textbox-default::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    color: #3333FF; }
+  .textbox-default:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #3333FF; }
+  .textbox-default::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #3333FF; }
+  .textbox-default:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #3333FF; }
+  .textbox-default::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: #3333FF; }
+
+.login-form {
+  position: absolute;
+  width: 200px;
+  border: 1px solid #3333FF;
+  padding: 50px 25px;
+  top: 40%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: -100px; }
+
+.register-form {
+  position: relative;
+  width: 300px;
+  border: 1px solid #3333FF;
+  padding: 50px 25px;
+  top: 30%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: -100px; }
+  .register-form label span {
+    margin-left: 3px;
+    color: #3333FF; }
+  .register-form h1 {
+    color: #3333FF; }
+
+.button {
+  border: none;
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  height: 25px;
+  font-weight: 700;
+  margin: 5px 0;
+  font-size: 14px;
+  letter-spacing: 1px; }
+  .button:focus {
+    outline: none; }
+
+.button-submit {
+  background-color: #66FF66;
+  color: #3333FF; }
+
+.button-attention {
+  background-color: #3333FF;
+  color: white; }
+
+.button-danger {
+  background-color: #FF3333;
+  color: white; }
+
+.text-form-error {
+  font-size: 12px;
+  color: #FF3333;
+  padding: 3px; }
+
+.text-form-success {
+  font-size: 14px;
+  font-weight: bold;
+  color: #3333FF;
+  text-align: center;
+  letter-spacing: 1px;
+  position: relative;
+  top: 15px; }
+
+.user-menu-container {
+  vertical-align: top;
+  float: right;
+  height: 0; }
+
+.user-menu-avatar {
+  border: 1px solid #3333FF;
+  border-radius: 100%;
+  width: 50px;
+  display: inline-block;
+  vertical-align: middle; }
+
+.user-menu-image-container {
+  text-align: center;
+  width: 110px;
+  cursor: pointer; }
+
+.user-menu-options-container {
+  border-radius: 5px;
+  background-color: #dfdffa;
+  width: 110px;
+  position: relative;
+  right: -120%;
+  padding: 5px 0;
+  -webkit-transition: all 0.6s ease-in;
+  -moz-transition: all 0.6s ease-in;
+  transition: all 0.6s ease-in; }
+  .user-menu-options-container div {
+    text-align: center;
+    padding: 5px;
+    margin: 0 1px;
+    border-radius: 2px; }
+    .user-menu-options-container div:hover {
+      background-color: white; }
+    .user-menu-options-container div a {
+      text-decoration: none;
+      font-weight: bold;
+      display: block;
+      color: #63778e;
+      width: 100%;
+      height: 100%; }
+      .user-menu-options-container div a:active {
+        text-decoration: none; }
+      .user-menu-options-container div a:focus {
+        text-decoration: none; }
+      .user-menu-options-container div a:visited {
+        text-decoration: none; }
+
+.user-menu-options-container-active {
+  right: 0;
+  -webkit-transition: all 0.6s ease-in;
+  -moz-transition: all 0.6s ease-in;
+  transition: all 0.6s ease-in; }
+
+hr {
+  border-color: #3333FF;
+  border-width: 0.5px;
+  margin-left: 25px;
+  margin-right: 25px; }
+
+.tabs-container {
+  margin-left: 25px;
+  text-align: center; }
+
+.tab-option {
+  display: inline-block;
+  border: 1px solid black;
+  border-left: none;
+  height: 35px;
+  padding: 8px 25px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  font-weight: bold; }
+  .tab-option:first-child {
+    border-left: 1px solid black; }
+
+.tab-active {
+  background: #dfdffa;
+  color: #63778e; }
+
+.tab-content {
+  border: 1px solid #3333FF;
+  margin: 20px 25px 0 25px;
+  height: 550px;
+  overflow: auto; }
+
+.user-item .user-item-container {
+  margin: 10px;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center; }
+
+.user-item-avatar {
+  width: 150px; }
+
+.animate {
+  -webkit-transition: height 0.6s ease-out;
+  -moz-transition: height 0.6s ease-out;
+  transition: height 0.6s ease-out; }

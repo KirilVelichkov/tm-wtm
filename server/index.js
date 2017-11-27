@@ -8,7 +8,7 @@ const data = require('./data')();
 const encryption = require('./utils/encryption');
 
 require('./config/passport');
-require('./config/express')(app);
+require('./config/express')(app,config);
 require('./routers')({ app, encryption, config, data });
 
 

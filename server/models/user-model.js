@@ -39,10 +39,13 @@ const userSchema = new mongoose.Schema({
     },
     avatar: {
         type: String,
-        default: '58446e0a2374e32570d0fb06'
+        default: 'default-avatar.png'
     },
     isAdmin: Boolean,
-    isBlocked: Boolean
+    isBlocked: {
+        type: Boolean,
+        default: false
+    }
 });
 
 userSchema.method({
