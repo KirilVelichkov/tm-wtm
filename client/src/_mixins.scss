@@ -1,0 +1,31 @@
+@mixin placeholder-color($color){
+    &::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+        color: $color;
+    }
+    &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color: $color;
+    }
+    &::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color: $color;
+    }
+    &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: $color;
+    }
+    &::-ms-input-placeholder { /* Microsoft Edge */
+        color: $color;
+    }
+}
+
+@mixin transition($prop, $time, $type){
+    -webkit-transition: $prop $time $type;
+    -moz-transition: $prop $time $type;
+    transition: $prop $time $type;
+}
+
+@mixin transform-scale($value){
+    -ms-transform: scale($value);
+    -moz-transform: scale($value);
+    -webkit-transform: scale($value);
+    -o-transform: scale($value);
+    transform: scale($value)
+}
